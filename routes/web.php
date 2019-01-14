@@ -18,4 +18,10 @@ Route::get('/', function () {
 Auth::routes(['verify' => true]);
 // Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home')->middleware(['verified','auth']);
+
+// Route::group(['middleware' => ['verified','auth']], function() {
+	Route::get('/home', 'HomeController@index')->name('home');
+    
+    Route::resource('roles','RoleController');
+    Route::resource('users','UserController');
+// });

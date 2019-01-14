@@ -71,22 +71,19 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-
-        $avatar = $data['avatar'];
-        $extension = $avatar->getClientOriginalExtension();
-        $filename = date("dmy").rand(1,100).$avatar->getFilename().'.'.$extension;
-        Storage::disk('public')->put($filename,  File::get($avatar));
-        return User::create([
+        $user=User::create([
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
 
             'name' => $data['name'],
-            'avatar' => $filename,
             'birthplace' => $data['birthplace'],
             'dateofbirth' => $data['dateofbirth'],
             'aboutme' => $data['aboutme'],
             'address' => $data['address'],
             'website' => $data['website'],
         ]);
+        $user->assignRole([3]);
+        $user->addMediaFromRequest('avatar')->toMediaCollection('avatars');
+        return $user;
     }
 }

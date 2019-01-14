@@ -2,15 +2,13 @@
 
 namespace App;
 
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
 
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Model implements HasMedia
 {
-    use Notifiable;
-
-    /**
+    use HasMediaTrait;
+     /**
      * The attributes that are mass assignable.
      *
      * @var array
@@ -27,4 +25,12 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function registerMediaConversions($media = null)
+    {
+        $this->addMediaConversion('thumb')
+              ->width(368)
+              ->height(232)
+              ->sharpen(10);
+    }
 }
