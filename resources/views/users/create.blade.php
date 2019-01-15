@@ -52,7 +52,7 @@
                             <label for="role" class="col-md-4 col-form-label text-md-right">{{ __('Role') }}</label>
 
                             <div class="col-md-6">
-                                <select name="roles" class="form-control" multiple="" required="" autofocus="">
+                                <select name="roles" class="form-control" required="" autofocus="">
                                 @foreach($roles as $role)
                                     <option value={{$role}}>{{$role}}</option>
                                 @endforeach;
@@ -60,6 +60,21 @@
                                 @if ($errors->has('roles'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('roles') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="visible" class="col-md-4 col-form-label text-md-right">{{ __('Visible') }}</label>
+
+                            <div class="col-md-6">
+                                <select name="visible" class="form-control" required="" autofocus="">
+                                    <option value=1>true</option>
+                                    <option value=0>false</option>
+                                </select>
+                                @if ($errors->has('visible'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('visible') }}</strong>
                                     </span>
                                 @endif
                             </div>

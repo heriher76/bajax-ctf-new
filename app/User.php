@@ -14,7 +14,7 @@ class User extends Model implements HasMedia
      * @var array
      */
     protected $fillable = [
-        'email', 'password', 'name', 'avatar', 'birthplace', 'dateofbirth', 'aboutme', 'address', 'website', 'visible',
+        'email', 'password', 'name', 'avatar', 'birthplace', 'dateofbirth', 'aboutme', 'address', 'website', 'visible', 'email_verified_at'
     ];
 
     /**

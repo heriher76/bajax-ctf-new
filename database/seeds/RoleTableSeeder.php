@@ -21,9 +21,13 @@ class RoleTableSeeder extends Seeder
                 'name'=>'Alumni',
                 'access'=>[5,13],
             ],
-			[
+            [
                 'name'=>'Anggota',
                 'access'=>[5],
+            ],
+			[
+                'name'=>'Anggota Aktif',
+                'access'=>[5,9,13],
             ],
        ];
         foreach ($roles as $role) {

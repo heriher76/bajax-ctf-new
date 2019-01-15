@@ -25,7 +25,7 @@
                           @endif
                          text-white badge float-right">{{ ++$i }}</span></div>
                         <div class="card-body text-center">
-                          <img src="{{ $user->getMedia('avatars')->first()->getUrl('thumb') }}"> <br>
+                          <img src="{{ $user->getMedia('avatars')->first()->getUrl('thumb') }}" width="100%"> <br>
                           {{ $user->email }} <br>
                           <a href="{{ $user->website }}" target="_blank">{{ $user->website }}</a><br>
                           <textarea class="form-control" disabled="">{{ $user->aboutme }}</textarea>
@@ -40,9 +40,13 @@
                             <div class="col">
                               <a class="btn btn-info btn-sm" href="{{ route('users.show',$user->id) }}">Show</a>
                             </div>
+                            @can('user-edit')
                             <div class="col">
                               <a class="btn btn-primary btn-sm" href="{{ route('users.edit',$user->id) }}">Edit</a>
                             </div>
+                            @endcan
+                            @can('user-delete')
+                            @if($user->id != 1)
                             <div class="col">
                               <form method="post" action="{{ route('users.destroy',$user->id) }}?_method=DELETE">
                                 @csrf
@@ -50,6 +54,8 @@
                                 <input type="submit" class="btn btn-danger btn-sm" value="Delete">
                               </form>
                             </div>
+                            @endif
+                            @endcan
                           </div>
                         </div>
                       </div>

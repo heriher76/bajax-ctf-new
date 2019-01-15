@@ -20,12 +20,10 @@ class RoleController extends Controller
      */
     function __construct()
     {
-         // $this->middleware('permission:role-list');
-         // $this->middleware('permission:role-create', ['only' => ['create','store']]);
-         // $this->middleware('permission:role-edit', ['only' => ['edit','update']]);
-
- 
-         // $this->middleware('permission:role-delete', ['only' => ['destroy']]);
+         $this->middleware('permission:role-list');
+         $this->middleware('permission:role-create', ['only' => ['create','store']]);
+         $this->middleware('permission:role-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:role-delete', ['only' => ['destroy']]);
     }
 
 
@@ -146,8 +144,13 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
-        DB::table("roles")->where('id',$id)->delete();
-        return redirect()->route('roles.index')
-                        ->with('success','Role deleted successfully');
+        if($id != 1 and $id != 2 and $id != 3 and $id != 4){
+            DB::table("roles")->where('id',$id)->delete();
+            return redirect()->route('roles.index')
+                            ->with('success','Role deleted successfully');
+        }
+        else
+            return redirect()->route('roles.index')
+                            ->with('success','Can\'t delete this role');
     }
 }

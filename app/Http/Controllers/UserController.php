@@ -21,6 +21,14 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    function __construct()
+    {
+         $this->middleware('permission:user-list');
+         $this->middleware('permission:user-create', ['only' => ['create','store']]);
+         $this->middleware('permission:user-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:user-delete', ['only' => ['destroy']]);
+    }
+
     public function index(Request $request)
     {
         $data = User::orderBy('id','DESC')->paginate(10);
@@ -60,6 +68,7 @@ class UserController extends Controller
             'address' => ['required','string'],
             'website' => ['max:191'],
             'roles' => 'required',
+            'visible' => 'required',
         ]);
 
         $data = $request->all();
@@ -74,6 +83,7 @@ class UserController extends Controller
             'aboutme' => $data['aboutme'],
             'address' => $data['address'],
             'website' => $data['website'],
+            'visible' => $data['visible'],
         ];
         $user = User::create($input);
         $user->assignRole($request->input('roles'));
@@ -97,7 +107,7 @@ class UserController extends Controller
         return view('users.show',compact('user'));
     }
 
-
+    
     /**
      * Show the form for editing the specified resource.
      *
@@ -124,30 +134,51 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $oldUser=User::find($id);
         $this->validate($request, [
-            'name' => 'required',
-            'email' => 'required|email|unique:users,email,'.$id,
-            'password' => 'same:confirm-password',
-            'roles' => 'required'
+            'email' => ['required', 'string', 'email', 'max:191', 'unique:users,email,'.$id],
+            'password' => ['confirmed'],
+
+            'name' => ['required', 'string', 'max:191'],
+            'avatar' => ['image','max:2048'],
+            'birthplace' => ['required','string','max:191'],
+            'dateofbirth' => ['required','date_format:Y-m-d'],
+            'address' => ['required','string'],
+            'website' => ['max:191'],
+            'roles' => 'required',
+            'visible' => 'required',
         ]);
 
 
-        $input = $request->all();
+        $data = $request->all();
+        $input=[
+            'email' => $data['email'],
+            'name' => $data['name'],
+            'birthplace' => $data['birthplace'],
+            'dateofbirth' => $data['dateofbirth'],
+            'aboutme' => $data['aboutme'],
+            'address' => $data['address'],
+            'website' => $data['website'],
+            'visible' => $data['visible'],
+        ];
+
+        if($data['email'] != $oldUser->email){
+            $input['email_verified_at']=null;
+        }
         if(!empty($input['password'])){ 
             $input['password'] = Hash::make($input['password']);
-        }else{
-            $input = array_except($input,array('password'));    
         }
-
 
         $user = User::find($id);
         $user->update($input);
         DB::table('model_has_roles')->where('model_id',$id)->delete();
 
-
         $user->assignRole($request->input('roles'));
 
-
+        if(!empty($data['avatar'])){ 
+            $user->clearMediaCollection('avatars');
+            $user->addMediaFromRequest('avatar')->toMediaCollection('avatars');
+        }
         return redirect()->route('users.index')
                         ->with('success','User updated successfully');
     }
@@ -161,8 +192,10 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        User::find($id)->delete();
-        return redirect()->route('users.index')
-                        ->with('success','User deleted successfully');
+        if($id != 1){
+            User::find($id)->delete();
+            return redirect()->route('users.index')
+                            ->with('success','User deleted successfully');
+        }
     }
 }
