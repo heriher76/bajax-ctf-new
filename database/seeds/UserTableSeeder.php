@@ -35,7 +35,7 @@ class UserTableSeeder extends Seeder
 
             'name' => "Ersa Azis Mansyur",
             'birthplace' => "Garut",
-            'dateofbirth' => "1998-02-04",
+            'dateofbirth' => "1998-03-24",
             'aboutme' => "Learn Anything Share Anything",
             'address' => "WAKANDA",
             'website' => "http://ersaazis.github.io",

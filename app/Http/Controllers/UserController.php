@@ -10,8 +10,6 @@ use App\User;
 use Spatie\Permission\Models\Role;
 use DB;
 use Hash;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\File;
 
 
 class UserController extends Controller
@@ -165,8 +163,8 @@ class UserController extends Controller
         if($data['email'] != $oldUser->email){
             $input['email_verified_at']=null;
         }
-        if(!empty($input['password'])){ 
-            $input['password'] = Hash::make($input['password']);
+        if(!empty($data['password'])){ 
+            $input['password'] = Hash::make($data['password']);
         }
 
         $user = User::find($id);

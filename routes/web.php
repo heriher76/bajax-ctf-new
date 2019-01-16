@@ -21,6 +21,8 @@ Auth::routes(['verify' => true]);
 
 Route::group(['middleware' => ['verified','auth']], function() {
 	Route::get('/home', 'HomeController@index')->name('home');
+	Route::get('/account', 'AccountController@index')->name('account');
+	Route::patch('/account/update', 'AccountController@update')->name('account.update');
     
     Route::resource('roles','RoleController');
     Route::resource('users','UserController');
