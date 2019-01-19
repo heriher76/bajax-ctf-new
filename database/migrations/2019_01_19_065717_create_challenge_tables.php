@@ -18,6 +18,10 @@ class CreateChallengeTables extends Migration
             $table->integer('point');
             $table->text('note');
             $table->string('flag');
+            $table->string('file1')->nullable();
+            $table->string('file2')->nullable();
+            $table->string('file3')->nullable();
+            $table->string('file4')->nullable();
             $table->timestamps();
         });
         Schema::create('challenge_log', function (Blueprint $table) {
