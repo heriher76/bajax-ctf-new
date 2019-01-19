@@ -10,4 +10,4 @@ before_script:
   - uname -a
 
 script:
-  - vendor/bin/phpunit
+  - php vendor/bin/phpunit
