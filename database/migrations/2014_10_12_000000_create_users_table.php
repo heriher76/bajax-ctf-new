@@ -26,6 +26,8 @@ class CreateUsersTable extends Migration
             $table->string('website')->nullable();
             $table->boolean('visible')->default(true);
 
+            $table->integer('point')->nullable();
+
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
