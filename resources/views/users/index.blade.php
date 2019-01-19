@@ -2,20 +2,20 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-12">
             <div class="card">
-                <div class="card-header">{{ __('Users Manajement') }} <a class="btn btn-info btn-sm text-white float-right" href="{{ route('users.create') }}">+</a></div>
+                <div class="card-header">{{ __('Users Manajement') }}@can('user-create') <a class="btn btn-info btn-sm text-white float-right" href="{{ route('users.create') }}">+</a>@endcan</div>
 
                 <div class="card-body">
                   @if ($message = Session::get('success'))
                   <div class="alert alert-success">
-                    <p>{{ $message }}</p>
+                    {{ $message }}
                   </div>
                   @endif
 
                   <div class="row">
                     @foreach ($data as $key => $user)
-                     <div class="col-md-6">
+                     <div class="col-md-4 mb-3">
                       <div class="card">
                         <div class="card-header">{{ $user->name }} <span class="
                           @if($user->visible == true)
@@ -61,6 +61,8 @@
                       </div>
                      </div>
                     @endforeach
+                  </div>
+                  <div class="row">
                     <div class="col">
                       {!! $data->render() !!}
                     </div>

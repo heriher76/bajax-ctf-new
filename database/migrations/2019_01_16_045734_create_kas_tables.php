@@ -17,6 +17,9 @@ class CreateKasTables extends Migration
             $table->increments('id');
             $table->unsignedInteger('user_id')->nullable();
             $table->integer('bayar');
+            $table->enum('bulan',[1,2,3,4,5,6,7,8,9,10,11,12]);
+            $table->integer('tahun');
+            $table->enum('minggu',[1,2,3,4]);
             $table->timestamps();
 
             $table->foreign('user_id')

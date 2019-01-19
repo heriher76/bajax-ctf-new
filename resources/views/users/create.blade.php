@@ -54,7 +54,7 @@
                             <div class="col-md-6">
                                 <select name="roles" class="form-control" required="" autofocus="">
                                 @foreach($roles as $role)
-                                    <option value={{$role}}>{{$role}}</option>
+                                    <option value="{{$role}}">{{$role}}</option>
                                 @endforeach;
                                 </select>
                                 @if ($errors->has('roles'))

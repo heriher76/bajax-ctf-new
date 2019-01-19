@@ -4,10 +4,12 @@ namespace App;
 
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
+use Spatie\Permission\Traits\HasRoles;
 
-class User extends Model implements HasMedia
+class User extends BaseModel implements HasMedia
 {
     use HasMediaTrait;
+    use HasRoles;
      /**
      * The attributes that are mass assignable.
      *
@@ -32,5 +34,8 @@ class User extends Model implements HasMedia
               ->width(368)
               ->height(232)
               ->sharpen(10);
+    }
+    public function kas(){
+        return $this->hasMany('App\Kas');
     }
 }

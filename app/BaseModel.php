@@ -5,10 +5,9 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Database\Eloquent\Model;
 
-class Model extends Authenticatable implements MustVerifyEmail
+class BaseModel extends Authenticatable implements MustVerifyEmail
 {
 	use Notifiable;
-	use HasRoles;
 }

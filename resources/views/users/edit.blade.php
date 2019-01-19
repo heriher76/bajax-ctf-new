@@ -58,7 +58,7 @@
                                     @if(array_key_exists($role, $userRole))
                                         selected=""
                                     @endif
-                                    value={{$role}}>{{$role}}</option>
+                                    value="{{$role}}">{{$role}}</option>
                                 @endforeach;
                                 </select>
                                 @if ($errors->has('roles'))

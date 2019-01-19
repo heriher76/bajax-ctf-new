@@ -6,12 +6,12 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Role Management') }} <a class="btn btn-info btn-sm text-white float-right" href="{{ route('roles.create') }}">+</a></div>
+                <div class="card-header">{{ __('Role Management') }}@can('role-create')<a class="btn btn-info btn-sm text-white float-right" href="{{ route('roles.create') }}">+</a>@endcan</div>
 
                 <div class="card-body">
                     @if ($message = Session::get('success'))
                         <div class="alert alert-success">
-                            <p>{{ $message }}</p>
+                            {{ $message }}
                         </div>
                     @endif
 
