@@ -42,6 +42,6 @@ class UserTableSeeder extends Seeder
 		]);
         $user->assignRole([1]);
         $file=public_path()."/svg/gambarasli.jpg";
-        $user->addMedia($file)->toMediaCollection('avatars');
+        $user->copyMedia($file)->toMediaCollection('avatars');
     }
 }
