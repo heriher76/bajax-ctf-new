@@ -8,6 +8,6 @@ class Challenge extends Model
 {
 	protected $table = 'challenge';
     protected $fillable = [
-        'point','note','flag',
+        'name','point','note','flag','file1','file2','file3','file4',
     ];
 }

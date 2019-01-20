@@ -52,6 +52,11 @@
                         @else
                             @can('user-list')
                             <li class="nav-item">
+                                <a class="nav-link" href="{{ route('challenge.index') }}">{{ __('Challenges') }}</a>
+                            </li>
+                            @endcan
+                            @can('user-list')
+                            <li class="nav-item">
                                 <a class="nav-link" href="{{ route('users.index') }}">{{ __('Users') }}</a>
                             </li>
                             @endcan

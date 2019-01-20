@@ -47,6 +47,11 @@ return [
             'driver' => 'local',
             'root' => storage_path('app'),
         ],
+        'challenges' => [
+            'driver' => 'local',
+            'root' => storage_path('app/challenges'),
+            'url' => env('APP_URL').'/challenges',
+        ],
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
