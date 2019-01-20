@@ -55,4 +55,8 @@ Route::group(['middleware' => ['auth']], function() {
 
 	// ScoreBoard
 	Route::get('score','ScoreBoardController@index')->name('score');
+
+	//User Profile
+	Route::get('profile/{id}','UserProfileController@index')->name('profile');
+
 });

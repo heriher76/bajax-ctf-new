@@ -6,7 +6,6 @@ use Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
-use App\Challenge;
 use App\ChallengeLog;
 
 class ScoreBoardController extends Controller

@@ -19,7 +19,15 @@
                             @foreach($score as $s)
                             <tr @if($s->id == Auth::id()) style="font-size: 20px;font-weight: bold" @endif>
                                 <td>{{$i++}}</td>
-                                <td>{{$s->name}}</td>
+                                <td>
+                                    @can('user-list')
+                                        <a href="{{ route('users.show',['id'=>$s->id]) }}">
+                                    @endcan
+                                    {{$s->name}}
+                                    @can('user-list')
+                                        </a>
+                                    @endcan
+                                </td>
                                 <td>{{$s->point}}</td>
                             </tr>
                             @endforeach

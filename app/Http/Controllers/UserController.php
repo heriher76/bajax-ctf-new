@@ -7,6 +7,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
+use App\ChallengeLog;
 use Spatie\Permission\Models\Role;
 use DB;
 use Hash;
@@ -102,7 +103,8 @@ class UserController extends Controller
     public function show($id)
     {
         $user = User::find($id);
-        return view('users.show',compact('user'));
+        $challenges = ChallengeLog::where('user_id',$id)->get();
+        return view('users.show',compact('user','challenges'))->with('i',1);
     }
 
     

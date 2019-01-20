@@ -54,6 +54,33 @@
                     </table>
                 </div>
             </div>
+
+            <div class="card mt-4">
+                <div class="card-header">Solves</div>
+
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Challenge</th>
+                                <th>Point</th>
+                                <th>Solved</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($challenges as $challenge)
+                                <tr>
+                                    <td>{{ $i++ }}</td>
+                                    <td><a href="{{ route('challenge.show',['id'=>$challenge->challenge->id]) }}">{{ $challenge->challenge->name }}</a></td>
+                                    <td>{{ $challenge->challenge->point }}</td>
+                                    <td>{{ $challenge->challenge->created_at }}</td>
+                                </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 </div>
