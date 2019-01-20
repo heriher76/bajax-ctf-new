@@ -5,9 +5,18 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 use App\Challenge;
+use App\ChallengeLog;
+use Auth;
 
 class ChallengeController extends Controller
 {
+    function __construct()
+    {
+         $this->middleware('permission:challenge-create', ['only' => ['create','store']]);
+         $this->middleware('permission:challenge-edit', ['only' => ['destroyFile','edit','update']]);
+         $this->middleware('permission:challenge-delete', ['only' => ['destroy']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +24,15 @@ class ChallengeController extends Controller
      */
     public function index()
     {
-        $challenges = Challenge::orderBy('id','ASC')->get();
+        $listChallenges = Challenge::orderBy('id','ASC')->get();
+        $challenges=array();
+        foreach ($listChallenges as $challenge) {
+            $challengeLog=ChallengeLog::where(['user_id' => Auth::id(),'challenge_id' => $challenge->id])->count();
+            if($challengeLog)
+                $challenges[]=array("data"=>$challenge,"finished"=>true);
+            else 
+                $challenges[]=array("data"=>$challenge,"finished"=>false);
+        }
         return view('challenge.index',compact('challenges'))
             ->with('i', 1);
     }
@@ -101,6 +118,7 @@ class ChallengeController extends Controller
     public function show($id)
     {
         $challenge = Challenge::find($id);
+        $challengeLog=ChallengeLog::where(['user_id' => Auth::id(),'challenge_id' => $id])->count();
         $urlFile=array();
         $urlFile[1]=Storage::disk('challenges')->url($id.'/'.$challenge->file1);
         $urlFile[2]=Storage::disk('challenges')->url($id.'/'.$challenge->file2);
@@ -108,7 +126,7 @@ class ChallengeController extends Controller
         $urlFile[4]=Storage::disk('challenges')->url($id.'/'.$challenge->file4);
 
 
-        return view('challenge.show',compact('challenge','urlFile'));
+        return view('challenge.show',compact('challenge','urlFile','challengeLog'));
     }
 
     /**

@@ -51,5 +51,8 @@ Route::group(['middleware' => ['auth']], function() {
     // Challennge Manajement
     Route::resource('challenge','ChallengeController');
 	Route::get('challenge/{id}/destroyFile/{file}','ChallengeController@destroyFile')->name('challenge.deleteFile');
-	Route::post('challenge/{id}/flag','ChallengeLogController@cekFlag')->name('challenge.cekFlag');
+	Route::post('challenge/{id}/flag','ChallengeLogController@cekFlag')->name('challenge.cekFlag')->middleware('throttle:10,1');
+
+	// ScoreBoard
+	Route::get('score','ScoreBoardController@index')->name('score');
 });

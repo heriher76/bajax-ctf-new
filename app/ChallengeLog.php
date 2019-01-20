@@ -10,4 +10,13 @@ class ChallengeLog extends Model
     protected $fillable = [
         'user_id','challenge_id'
     ];
+    public function challenge(){
+    	return $this->belongsTo('App\Challenge', 'challenge_id');
+    }
+    public function user(){
+    	return $this->belongsTo('App\User', 'user_id');
+    }
+    public function score(){
+      return $this->hasMany('App\Challenge','challenge_id')->selectRaw('sum(challenge.point) as point');
+   }
 }

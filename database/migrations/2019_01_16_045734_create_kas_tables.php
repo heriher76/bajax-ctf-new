@@ -50,6 +50,7 @@ class CreateKasTables extends Migration
     public function down()
     {
         Schema::dropIfExists('kas');
-        Schema::dropIfExists('kas');
+        Schema::dropIfExists('keuangan');
+        Schema::dropIfExists('jumlah_uang');
     }
 }
